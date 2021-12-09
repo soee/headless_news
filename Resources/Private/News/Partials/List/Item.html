@@ -1,0 +1,33 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:n="http://typo3.org/ns/GeorgRinger/News/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:spaceless>
+    <f:format.raw>
+        <f:format.json value="{
+                    uid: newsItem.uid,
+                    title: newsItem.title,
+                    teaser: newsItem.teaser,
+                    isTopNews: newsItem.istopnews,
+                    crdate: '{f:if(condition: newsItem.crdate, then: \'{newsItem.crdate -> f:format.date(format: \\\'M\ d\ Y\\\')}\')}',
+                    tstamp: '{f:if(condition: newsItem.tstamp, then: \'{newsItem.tstamp -> f:format.date(format: \\\'M\ d\ Y\\\')}\')}',
+                    datetime: '{f:if(condition: newsItem.datetime, then: \'{newsItem.datetime -> f:format.date(format: \\\'M\ d\ Y\\\')}\')}',
+
+                    author: {
+                      author: newsItem.author,
+                      authorEmail: newsItem.authorEmail
+                    },
+                    media: '{f:render(partial: \'Files\', arguments: \'{files: newsItem.media, view: \\\'list\\\', type: \\\'media\\\'}\') -> headless:format.json.decode()}',
+                    falRelatedFiles: '{f:render(partial: \'Files\', arguments: \'{files: newsItem.falRelatedFiles, view: \\\'list\\\', type: \\\'relatedFiles\\\'}\') -> headless:format.json.decode()}',
+                    categories: '{f:render(partial: \'Categories\', arguments: \'{categories: newsItem.categories}\') -> headless:format.json.decode()}',
+                    tags: '{f:render(partial: \'Tags\', arguments: \'{tags: newsItem.tags}\') -> headless:format.json.decode()}',
+                    metaData: {
+                      keywords: newsItem.keywords,
+                      description: newsItem.description,
+                      alternativeTitle: newsItem.alternativeTitle
+                    },
+                    slug: '{n:link(newsItem: newsItem, settings: settings, uriOnly: 1)}',
+                    pathSegment: newsItem.pathSegment
+                }"/>
+    </f:format.raw>
+</f:spaceless>
